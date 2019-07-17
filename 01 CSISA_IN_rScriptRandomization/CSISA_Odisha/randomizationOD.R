@@ -18,6 +18,13 @@ z <- mixedsort(sort(filenames))
 z
 y <- sapply(z, pdftools::pdf_convert, dpi=600)
 
+# load the png files generated
+
+filenames <- list.files(readPdf, pattern = "*.png$")
+filenames
+y <- mixedsort(sort(filenames))
+
+# load the oriya package from tesseract; google on how to download tesseract language package
 oriya <- tesseract("ori")
 
 text <- sapply(y, tesseract::ocr, engine = oriya)
@@ -46,13 +53,9 @@ for (i in seq_along(dt)) {
 }
 
 
-
-
 files <- list.files(pattern="*.csv$")
 files
 p <- read.csv(files, header = T, stringsAsFactors = F)
 q <- p[sample(nrow(p),25), ]
 
 write.csv(q,"Bahalda.csv", row.names = FALSE)
-
-
