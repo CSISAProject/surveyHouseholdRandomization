@@ -1,4 +1,5 @@
-#install.packages("rJava", dependencies=TRUE)
+# This code combines all CSV files from one district and saves in single excel file
+# You need to install.packages("rJava", dependencies=TRUE) to run xlsx
 # library(xlsx)
 # library(dplyr)
 # library(tidyverse)
@@ -16,6 +17,7 @@ for (f in files) {
 
 allVill <- list.files(parentFolder, pattern = "*.csv$")
 allVill
+
 wb <- createWorkbook()
 
 for (i in allVill) {
@@ -24,4 +26,3 @@ for (i in allVill) {
 }
 
 saveWorkbook(wb, "finalRandomNumberBalia.xlsx")
-
