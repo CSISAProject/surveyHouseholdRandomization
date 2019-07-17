@@ -27,9 +27,9 @@ z <- mixedsort(sort(filenames))
 
 y <- sapply(z, pdf_text)
 y
-# ************************************************** #
 
-# w <- str_extract_all(y,"????????? ??????????????? : [[:print:]]{1,8}")
+# extract HH numbers; remember in earlier West Bengal files, HH numbers had a pattern ":n "
+# if the pdf file is image type file, use tesseract and load tesseract language "BEN"
 
 w <- str_extract_all(y, " : n \\d{1,10} | : n\\d{1,15} | : n 0\\d{1,15}" )
 
@@ -86,7 +86,3 @@ write.csv(q,"17_Raipur.csv", row.names = FALSE)
 
 
 # cheers ! Enjoy automating !! ;)
-
-
-
-
