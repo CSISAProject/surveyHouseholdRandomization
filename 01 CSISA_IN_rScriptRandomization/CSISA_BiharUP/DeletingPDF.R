@@ -1,3 +1,5 @@
+
+# In case, you want to delete all the PDF files (eats up lots of storage on your laptop ! :( )
 library(xlsx)
 library(dplyr)
 library(tidyverse)
