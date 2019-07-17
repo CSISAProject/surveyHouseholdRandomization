@@ -5,11 +5,7 @@
 # library(plyr)
 # library(stringr)
 
-
-
-# test for Section --------------------------------------------------------
-(cmd + Shift + r)
-
+# Same as file no. 04....
 
 parentFolder <- "/Users/asoc/Desktop/SurveySampling/Bihar_UP/NAWADA"
 setwd(parentFolder)
