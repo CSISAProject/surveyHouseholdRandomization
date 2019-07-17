@@ -1,5 +1,6 @@
+
+# For Uttar Pradesh PDF files
 # to install packages: install.packages(c("pdftools", "data.table", "tidyverse", "plyr", "stringr", "gtools"))
-# 
 # library(pdftools)
 # library(data.table)
 # library(tidyverse)
@@ -51,8 +52,6 @@ for (i in seq_along(x)) {
 }
 
 
-
-
 files <- list.files(pattern="*.csv$")
 allFiles <- llply(files, read.csv)
 combined <- do.call("smartbind", allFiles)
@@ -77,12 +76,8 @@ p <- read.csv("finalHHNumber1001.csv", header = T, stringsAsFactors = F)
 
 q <- p[sample(nrow(p),15), ]
 
-#q <- sample(p[ ,1], 15, replace = FALSE)
-
 
 write.csv(q,"33_CharaKolhua.csv", row.names = FALSE, fileEncoding = "UTF-8")
 
 
 # cheers ! Enjoy automating !! ;)
-
-
