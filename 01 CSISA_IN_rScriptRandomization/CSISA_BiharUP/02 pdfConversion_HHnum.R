@@ -1,5 +1,5 @@
 # to install packages: install.packages(c("pdftools", "data.table", "tidyverse", "plyr", "stringr", "gtools"))
-# 
+# download and install following libraries
 # library(pdftools)
 # library(data.table)
 # library(tidyverse)
@@ -7,6 +7,7 @@
 # library(stringr)
 # library(gtools)
 # library(xlsx)
+
 # set directory : should manage folder path properly, make sure pdf files are
 #                 placed as District > village name > pdf files
 
@@ -16,7 +17,6 @@ setwd(parentFolder)
 # to check the pdf files
 list.files(parentFolder)
 
-
 # setting the file path for the parent folder
 readPdf <- file.path(parentFolder)
 
@@ -25,40 +25,31 @@ filenames <- list.files(readPdf, pattern = "*.pdf$")
 
 z <- mixedsort(sort(filenames))
 
+# convert pdf files into plain text format
 y <- sapply(z, pdf_text)
 
-
-# ************************************************** #
-
-# w <- str_extract_all(y,"गतह सपखयच : [[:print:]]{1,8}")
+# look for the patterns of household numbers in hindi
+# easy way to check the spelling in unicode from the file is to copy the name
+# GRIHA SANKHYA and paste it in the find (Ctrl + F) textbox. And then copy and paste it
 
 w <- str_extract_all(y, "गतह सपखयच : \\d{1,8} | 
                      मकपन सशखनप : \\d{1,8} | मकपन सहखनप : \\d{1,8} | मककन सपखनक : \\d{1,8}  | मकपन सपखयप :  \\d{1,8}  ")
                      
 u <- str_extract_all(w, "[0-9.]+")
 
-#w <- str_extract_all(y,"(\\d{1,8}\\W{1,8}[0-9.]+)|(\\d{1,8}\\p{L})|(\\d{1,8})|(\\p{Digit}{1,4}\\W\\p{Digit}{1,4})")
-
-
-#w <- str_extract_all(y,"(\\p{Digit}{1,4}\\W\\p{Digit}{1,4})|(\\d{1,5})")
-#w
-
-# ************************************************** #
-
-#v <- str_extract_all(u, "(\\d{1,8}),(\\d{1,8}\\p{Digit}{1,4}\\S\\d{1,8})|(\\p{Digit}{1,5})|(\\d{1,8})|
-#                     (\\d{1,8})\\s(\\p{Letter})|(\\d{1,8}\\w\\p{Letter}\\W\\d{1,8})")
-
+# remove duplicate Household numbers 
 
 x <- lapply(u, unique)
 x
+
+# paste the numbers in respective village file names
 for (i in seq_along(x)) {
   filename = paste(z[[i]],".csv", sep = "")
   write.table(x[i],filename, row.names = FALSE, col.names = "hhID")
   
 }
 
-
-
+# to combine all village csv files into one file 
 
 files <- list.files(pattern="*.csv$")
 allFiles <- llply(files, read.csv)
@@ -72,26 +63,13 @@ read_csv_filename <- function(files){
 
 allFiles <- ldply(files, read_csv_filename)
 
-# for (file in allFiles) {
-#   p <- read.csv(combined, header = T, stringsAsFactors = F)
-#   q <- sample(p[ ,1], 15, replace = FALSE)
-#   write.csv(q, paste0(file,"RANDOM.csv"))
-# }
-
 write.csv(allFiles, "finalHHNumber1001.csv", fileEncoding = "UTF-8", row.names = FALSE)
 
 p <- read.csv("finalHHNumber1001.csv", header = T, stringsAsFactors = F)
 
 q <- p[sample(nrow(p),15), ]
 
-#q <- sample(p[ ,1], 15, replace = FALSE)
-
-
 write.csv(q,"finalRANDOM.csv", row.names = FALSE)
 
 
 # cheers ! Enjoy automating !! ;)
-
-
-
-
