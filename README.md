@@ -2,7 +2,7 @@
 This repository contains the R scripts for household randomization for Landscape Diagnostics Survey in India
 
 In order to run the R scripts, you need to have the following:
-•	Make sure you have received all the PDF files for the survey districts
+•	Make sure you have received all the PDF files for the survey districts <br>
 •	Ensure that you have correctly placed them as District Name > Village Name > PDF files
 •	Check whether the contents of the pdf files are extractable. In case of Bihar and most UP districts, you can easily extract particular words. If the PDF file is in image format, you need to use tesseract package.
 •	Always check the PDF files whether they are extractable.
